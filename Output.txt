@@ -1,0 +1,38 @@
+const User = require('./user');
+
+// Find users within a 500m range of a given location
+const getUsers = (latitude,longitude) => { User.find({
+  location: {
+    $near: {
+      $geometry: {
+        type: 'Point',
+        coordinates: [latitude, longitude] // Replace latitude and longitude with actual values
+      },
+      $maxDistance: 500
+    }
+  }
+}).then((users) => {
+  console.log('Users within 500m range:', users);
+}).catch((error) => {
+  console.error('Error finding users:', error);
+});
+}
+
+
+const User = require('./user');
+
+// Create a new user
+const newUser = new User({
+  name: 'John Doe',
+  location: {
+    type: 'Point',
+    coordinates: [latitude, longitude] // Replace latitude and longitude with actual values
+  }
+});
+
+// Save the user to the database
+newUser.save().then(() => {
+  console.log('User saved successfully');
+}).catch((error) => {
+  console.error('Error saving user:', error);
+});
